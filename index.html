@@ -17,7 +17,6 @@ justify-content: center;
 align-items: center;
 }
 
-/* Start Button Overlay */
 #startOverlay {
 position: fixed; top: 0; left: 0; width: 100%; height: 100%;
 background: #020617; z-index: 1000;
@@ -28,8 +27,7 @@ cursor: pointer; transition: opacity 0.5s;
 #startOverlay p { font-size: 1.5rem; color: #94a3b8; }
 #startBtn { margin-top: 30px; padding: 20px 50px; font-size: 1.5rem; background: #10b981; color: white; border: none; border-radius: 10px; cursor: pointer; font-weight: bold; }
 
-/* Slide Container */
-#slideContainer { width: 90%; max-width: 1200px; height: 80vh; position: relative; }
+#slideContainer { width: 95%; max-width: 1400px; height: 85vh; position: relative; }
 .slide {
 position: absolute; top: 0; left: 0; width: 100%; height: 100%;
 opacity: 0; transition: opacity 1s ease-in-out;
@@ -38,20 +36,44 @@ pointer-events: none;
 }
 .slide.active { opacity: 1; pointer-events: auto; }
 
-/* Typography */
-h2 { font-size: 3.5rem; font-weight: 900; margin-bottom: 20px; line-height: 1.1; }
+.slide-content {
+display: flex;
+gap: 50px;
+align-items: center;
+height: 100%;
+}
+
+.text-side {
+flex: 1;
+padding: 20px;
+}
+
+.image-side {
+flex: 1;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+.image-side img {
+max-width: 100%;
+max-height: 70vh;
+border-radius: 15px;
+box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+border: 2px solid rgba(255,255,255,0.1);
+}
+
+h2 { font-size: 2.8rem; font-weight: 900; margin-bottom: 20px; line-height: 1.1; }
 .gradient-text { background: linear-gradient(135deg, #06b6d4 0%, #f97316 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-p { font-size: 1.5rem; color: #cbd5e1; line-height: 1.6; max-width: 800px; margin-bottom: 30px; }
+p { font-size: 1.3rem; color: #cbd5e1; line-height: 1.6; margin-bottom: 20px; }
 ul { list-style: none; }
-li { font-size: 1.3rem; color: #94a3b8; margin-bottom: 15px; padding-left: 20px; border-left: 4px solid #f97316; }
+li { font-size: 1.1rem; color: #94a3b8; margin-bottom: 12px; padding-left: 20px; border-left: 4px solid #f97316; }
 
-/* Visual Elements */
-.stat-box { display: flex; gap: 20px; margin-top: 30px; }
-.stat { background: rgba(30, 41, 59, 0.8); padding: 20px; border-radius: 15px; text-align: center; border: 1px solid rgba(255,255,255,0.1); }
-.stat-num { font-size: 2.5rem; font-weight: 900; color: #10b981; }
-.stat-label { font-size: 0.9rem; color: #94a3b8; text-transform: uppercase; }
+.stat-box { display: flex; gap: 15px; margin-top: 20px; }
+.stat { background: rgba(30, 41, 59, 0.8); padding: 15px; border-radius: 10px; text-align: center; border: 1px solid rgba(255,255,255,0.1); }
+.stat-num { font-size: 2rem; font-weight: 900; color: #10b981; }
+.stat-label { font-size: 0.8rem; color: #94a3b8; text-transform: uppercase; }
 
-/* Audio Wave Animation */
 #audioIndicator {
 position: fixed; bottom: 30px; right: 30px;
 display: flex; gap: 5px; align-items: flex-end; height: 30px;
@@ -65,31 +87,37 @@ opacity: 0; transition: opacity 0.3s;
 .bar:nth-child(4) { animation-delay: 0.1s; height: 25px; }
 @keyframes bounce { 0%, 100% { transform: scaleY(0.5); } 50% { transform: scaleY(1.2); } }
 
-/* Progress Bar */
 #progressBar { position: fixed; bottom: 0; left: 0; height: 4px; background: #f97316; width: 0%; transition: width 0.5s; }
 </style>
 </head>
 <body>
 
-<!-- Start Overlay (Required for browser audio policies) -->
 <div id="startOverlay">
 <h1>Face Reader Presentation</h1>
 <p>Click below to start the guided tour</p>
 <button id="startBtn">▶ Start Presentation</button>
 </div>
 
-<!-- Slides -->
 <div id="slideContainer">
 
 <!-- Slide 1: Title -->
 <div class="slide">
+<div class="slide-content">
+<div class="text-side">
 <h2 class="gradient-text">Face Reader</h2>
 <p>The Future of Attendance and Training Management.</p>
 <p style="color: #f97316; font-weight: bold;">Seamless compliance. Verified attendance. Real-time oversight.</p>
 </div>
+<div class="image-side">
+<img src="site-terminal.png" alt="Face Reader Site Terminal">
+</div>
+</div>
+</div>
 
 <!-- Slide 2: Zero Hardware -->
 <div class="slide">
+<div class="slide-content">
+<div class="text-side">
 <h2>Infinite Scalability.<br><span class="gradient-text">Zero Hardware Required.</span></h2>
 <p>A 100% web-based architecture that deploys instantly using the smartphones, tablets, or laptops you already own.</p>
 <ul>
@@ -98,9 +126,16 @@ opacity: 0; transition: opacity 0.3s;
 <li><strong>Instant Deployment:</strong> Roll out across multiple sites on day one.</li>
 </ul>
 </div>
+<div class="image-side">
+<img src="signed-out.png" alt="Mobile Sign Out Screen">
+</div>
+</div>
+</div>
 
 <!-- Slide 3: Real-Time Oversight -->
 <div class="slide">
+<div class="slide-content">
+<div class="text-side">
 <h2>Total Oversight.<br><span class="gradient-text">In Real-Time.</span></h2>
 <p>The Live Office Dashboard provides an instant, bird's-eye view of your workforce as events happen.</p>
 <div class="stat-box">
@@ -108,11 +143,18 @@ opacity: 0; transition: opacity 0.3s;
 <div class="stat"><div class="stat-num" style="color:#06b6d4">3</div><div class="stat-label">Total Sign-Ins</div></div>
 <div class="stat"><div class="stat-num" style="color:#f97316">1</div><div class="stat-label">Unique Operatives</div></div>
 </div>
-<p style="margin-top:20px; font-size: 1.2rem;">Avoid duplicate billing and administrative errors. Track daily site throughput instantly.</p>
+<p style="margin-top:20px; font-size: 1.1rem;">Avoid duplicate billing and administrative errors. Track daily site throughput instantly.</p>
+</div>
+<div class="image-side">
+<img src="dashboard.png" alt="Office Dashboard">
+</div>
+</div>
 </div>
 
 <!-- Slide 4: GPS Location -->
 <div class="slide">
+<div class="slide-content">
+<div class="text-side">
 <h2>Incontrovertible Truth:<br><span class="gradient-text">Exact Time, Precise Location.</span></h2>
 <p>Eradicate time theft and verify presence with incontrovertible GPS data.</p>
 <ul>
@@ -121,9 +163,16 @@ opacity: 0; transition: opacity 0.3s;
 <li><strong>Right Time:</strong> Exact sign-in and sign-out times recorded down to the second.</li>
 </ul>
 </div>
+<div class="image-side">
+<img src="signed-out.png" alt="Location Tracking">
+</div>
+</div>
+</div>
 
 <!-- Slide 5: Training Matrix -->
 <div class="slide">
+<div class="slide-content">
+<div class="text-side">
 <h2>Bulletproof Compliance:<br><span class="gradient-text">The Automated Training Matrix.</span></h2>
 <p>Track critical operative qualifications and expiry statuses automatically to ensure absolute site compliance.</p>
 <ul>
@@ -132,9 +181,52 @@ opacity: 0; transition: opacity 0.3s;
 <li><strong>Immediate Visual Flags:</strong> Instant dashboard warnings for expired credentials before operatives step on site.</li>
 </ul>
 </div>
+<div class="image-side">
+<img src="dashboard.png" alt="Training Matrix Dashboard">
+</div>
+</div>
+</div>
 
-<!-- Slide 6: Summary -->
+<!-- Slide 6: Admin Panel -->
 <div class="slide">
+<div class="slide-content">
+<div class="text-side">
+<h2>Easy Management:<br><span class="gradient-text">Complete Control.</span></h2>
+<p>The Admin Panel gives you full control over your workforce data with an intuitive interface.</p>
+<ul>
+<li><strong>Add/Edit Operatives:</strong> Update details instantly.</li>
+<li><strong>Track Qualifications:</strong> Monitor expiry dates automatically.</li>
+<li><strong>Export Data:</strong> Generate CSV reports for payroll and compliance.</li>
+</ul>
+</div>
+<div class="image-side">
+<img src="admin-panel.png" alt="Admin Panel">
+</div>
+</div>
+</div>
+
+<!-- Slide 7: Registration -->
+<div class="slide">
+<div class="slide-content">
+<div class="text-side">
+<h2>Simple Registration:<br><span class="gradient-text">Onboard in Minutes.</span></h2>
+<p>Register new operatives quickly with our streamlined process. Capture face biometrics and collect all necessary information in one seamless workflow.</p>
+<ul>
+<li><strong>Face Capture:</strong> Secure biometric registration.</li>
+<li><strong>Complete Profiles:</strong> Store qualifications, contacts, and supervisor details.</li>
+<li><strong>Instant Activation:</strong> New operatives can sign in immediately.</li>
+</ul>
+</div>
+<div class="image-side">
+<img src="registration.png" alt="Registration Form">
+</div>
+</div>
+</div>
+
+<!-- Slide 8: Summary -->
+<div class="slide">
+<div class="slide-content">
+<div class="text-side">
 <h2 class="gradient-text">Why Face Reader?</h2>
 <p>We combine biometric security, GPS verification, and automated compliance into one seamless platform.</p>
 <ul>
@@ -142,12 +234,16 @@ opacity: 0; transition: opacity 0.3s;
 <li>Ensure 100% workforce compliance.</li>
 <li>Save hours of administrative work every week.</li>
 </ul>
-<p style="margin-top: 40px; color: #10b981; font-weight: bold; font-size: 1.8rem;">Ready to transform your site management?</p>
+<p style="margin-top: 30px; color: #10b981; font-weight: bold; font-size: 1.5rem;">Ready to transform your site management?</p>
+</div>
+<div class="image-side">
+<img src="site-terminal.png" alt="Face Reader">
+</div>
+</div>
 </div>
 
 </div>
 
-<!-- Audio Visualizer -->
 <div id="audioIndicator">
 <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
 </div>
@@ -160,7 +256,9 @@ const slidesData = [
 { text: "Total Oversight. In Real-Time. The Live Office Dashboard provides an instant, bird's-eye view of your workforce as events happen. Avoid duplicate billing and administrative errors. Track daily site throughput instantly.", duration: 15000 },
 { text: "Incontrovertible Truth. Exact Time, Precise Location. Eradicate time theft and verify presence with incontrovertible GPS data. Right Person, verified by biometric face scan. Right Place, GPS location verification accurate to within 5 metres. Right Time, exact sign-in and sign-out times recorded down to the second.", duration: 20000 },
 { text: "Bulletproof Compliance. The Automated Training Matrix. Track critical operative qualifications and expiry statuses automatically to ensure absolute site compliance. Centralised Logging. Real-Time Tracking. Immediate Visual Flags for expired credentials.", duration: 18000 },
-{ text: "Why Face Reader? We combine biometric security, GPS verification, and automated compliance into one seamless platform. Reduce time theft by up to 95%. Ensure 100% workforce compliance. Save hours of administrative work every week. Ready to transform your site management?", duration: 20000 }
+{ text: "Easy Management. Complete Control. The Admin Panel gives you full control over your workforce data with an intuitive interface. Add and edit operatives instantly. Track qualifications and monitor expiry dates automatically. Export data for payroll and compliance.", duration: 18000 },
+{ text: "Simple Registration. Onboard in Minutes. Register new operatives quickly with our streamlined process. Capture face biometrics and collect all necessary information in one seamless workflow. Face capture for secure biometric registration. Complete profiles with qualifications, contacts, and supervisor details. Instant activation so new operatives can sign in immediately.", duration: 20000 },
+{ text: "Why Face Reader? We combine biometric security, GPS verification, and automated compliance into one seamless platform. Reduce time theft by up to 95 percent. Ensure 100 percent workforce compliance. Save hours of administrative work every week. Ready to transform your site management?", duration: 20000 }
 ];
 
 let currentSlide = 0;
@@ -174,28 +272,38 @@ indicator.classList.remove('speaking');
 return;
 }
 
-// Update Visuals
 document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
 document.querySelectorAll('.slide')[index].classList.add('active');
 
-// Update Progress
 const progress = ((index + 1) / slidesData.length) * 100;
 progressBar.style.width = progress + '%';
 
-// Speak
 const utterance = new SpeechSynthesisUtterance(slidesData[index].text);
-utterance.rate = 0.9; // Slightly slower for clarity
-utterance.pitch = 1;
+utterance.rate = 0.95;
+utterance.pitch = 1.05;
 
-// Try to get a good voice
 const voices = synth.getVoices();
-const preferredVoice = voices.find(v => v.name.includes('Google UK English Male') || v.name.includes('Microsoft Ryan') || v.name.includes('Daniel'));
-if (preferredVoice) utterance.voice = preferredVoice;
+// Try to find a good female voice
+const femaleVoice = voices.find(v =>
+v.name.includes('Google UK English Female') ||
+v.name.includes('Microsoft Zira') ||
+v.name.includes('Samantha') ||
+v.name.includes('Karen') ||
+v.name.includes('Female')
+);
+
+if (femaleVoice) {
+utterance.voice = femaleVoice;
+} else {
+// Fallback to any English voice
+const englishVoice = voices.find(v => v.lang.includes('en'));
+if (englishVoice) utterance.voice = englishVoice;
+}
 
 utterance.onstart = () => indicator.classList.add('speaking');
 utterance.onend = () => {
 indicator.classList.remove('speaking');
-setTimeout(() => speakSlide(index + 1), 1000); // Pause between slides
+setTimeout(() => speakSlide(index + 1), 1500);
 };
 
 synth.speak(utterance);
@@ -205,7 +313,6 @@ document.getElementById('startBtn').addEventListener('click', () => {
 document.getElementById('startOverlay').style.opacity = '0';
 setTimeout(() => {
 document.getElementById('startOverlay').style.display = 'none';
-// Load voices then start
 if (synth.getVoices().length === 0) {
 synth.onvoiceschanged = () => speakSlide(0);
 } else {
