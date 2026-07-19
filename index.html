@@ -27,10 +27,10 @@ cursor: pointer; transition: opacity 0.5s;
 #startOverlay p { font-size: 1.5rem; color: #94a3b8; }
 #startBtn { margin-top: 30px; padding: 20px 50px; font-size: 1.5rem; background: #10b981; color: white; border: none; border-radius: 10px; cursor: pointer; font-weight: bold; }
 
-#slideContainer { width: 95%; max-width: 1400px; height: 85vh; position: relative; }
+#slideContainer { width: 95%; max-width: 1400px; height: 80vh; position: relative; }
 .slide {
 position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-opacity: 0; transition: opacity 1s ease-in-out;
+opacity: 0; transition: opacity 1.2s ease-in-out;
 display: flex; flex-direction: column; justify-content: center;
 pointer-events: none;
 }
@@ -57,27 +57,100 @@ align-items: center;
 
 .image-side img {
 max-width: 100%;
-max-height: 70vh;
+max-height: 65vh;
 border-radius: 15px;
 box-shadow: 0 20px 60px rgba(0,0,0,0.5);
 border: 2px solid rgba(255,255,255,0.1);
 }
 
-h2 { font-size: 2.8rem; font-weight: 900; margin-bottom: 20px; line-height: 1.1; }
+h2 { font-size: 2.5rem; font-weight: 900; margin-bottom: 20px; line-height: 1.1; }
 .gradient-text { background: linear-gradient(135deg, #06b6d4 0%, #f97316 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-p { font-size: 1.3rem; color: #cbd5e1; line-height: 1.6; margin-bottom: 20px; }
+p { font-size: 1.2rem; color: #cbd5e1; line-height: 1.6; margin-bottom: 20px; }
 ul { list-style: none; }
-li { font-size: 1.1rem; color: #94a3b8; margin-bottom: 12px; padding-left: 20px; border-left: 4px solid #f97316; }
+li { font-size: 1.05rem; color: #94a3b8; margin-bottom: 12px; padding-left: 20px; border-left: 4px solid #f97316; }
 
 .stat-box { display: flex; gap: 15px; margin-top: 20px; }
 .stat { background: rgba(30, 41, 59, 0.8); padding: 15px; border-radius: 10px; text-align: center; border: 1px solid rgba(255,255,255,0.1); }
 .stat-num { font-size: 2rem; font-weight: 900; color: #10b981; }
 .stat-label { font-size: 0.8rem; color: #94a3b8; text-transform: uppercase; }
 
+/* Controls */
+#controls {
+position: fixed;
+bottom: 40px;
+left: 50%;
+transform: translateX(-50%);
+display: flex;
+gap: 15px;
+align-items: center;
+background: rgba(15, 23, 42, 0.9);
+padding: 15px 30px;
+border-radius: 50px;
+border: 1px solid rgba(255,255,255,0.2);
+backdrop-filter: blur(10px);
+z-index: 100;
+}
+
+.control-btn {
+background: #06b6d4;
+color: white;
+border: none;
+padding: 12px 25px;
+border-radius: 25px;
+cursor: pointer;
+font-weight: 600;
+font-size: 14px;
+transition: all 0.3s;
+}
+
+.control-btn:hover {
+background: #0891b2;
+transform: translateY(-2px);
+}
+
+.control-btn:disabled {
+background: #475569;
+cursor: not-allowed;
+transform: none;
+}
+
+#voiceSelector {
+background: rgba(15, 23, 42, 0.9);
+color: white;
+border: 1px solid rgba(255,255,255,0.2);
+padding: 10px 15px;
+border-radius: 8px;
+font-size: 13px;
+max-width: 250px;
+}
+
+#progressBar {
+position: fixed;
+bottom: 0;
+left: 0;
+height: 4px;
+background: linear-gradient(90deg, #06b6d4, #f97316);
+width: 0%;
+transition: width 0.5s;
+}
+
+#slideCounter {
+color: #94a3b8;
+font-size: 14px;
+min-width: 80px;
+text-align: center;
+}
+
 #audioIndicator {
-position: fixed; bottom: 30px; right: 30px;
-display: flex; gap: 5px; align-items: flex-end; height: 30px;
-opacity: 0; transition: opacity 0.3s;
+position: fixed;
+bottom: 120px;
+right: 30px;
+display: flex;
+gap: 5px;
+align-items: flex-end;
+height: 30px;
+opacity: 0;
+transition: opacity 0.3s;
 }
 #audioIndicator.speaking { opacity: 1; }
 .bar { width: 6px; background: #06b6d4; border-radius: 3px; animation: bounce 1s infinite; }
@@ -87,7 +160,7 @@ opacity: 0; transition: opacity 0.3s;
 .bar:nth-child(4) { animation-delay: 0.1s; height: 25px; }
 @keyframes bounce { 0%, 100% { transform: scaleY(0.5); } 50% { transform: scaleY(1.2); } }
 
-#progressBar { position: fixed; bottom: 0; left: 0; height: 4px; background: #f97316; width: 0%; transition: width 0.5s; }
+.hidden { display: none !important; }
 </style>
 </head>
 <body>
@@ -244,6 +317,17 @@ opacity: 0; transition: opacity 0.3s;
 
 </div>
 
+<!-- Controls -->
+<div id="controls" class="hidden">
+<button class="control-btn" id="prevBtn" onclick="previousSlide()">◀ Previous</button>
+<button class="control-btn" id="playPauseBtn" onclick="togglePlayPause()">⏸ Pause</button>
+<button class="control-btn" id="nextBtn" onclick="nextSlide()">Next ▶</button>
+<div id="slideCounter">1 / 8</div>
+<select id="voiceSelector" onchange="changeVoice()">
+<option value="">Select Voice...</option>
+</select>
+</div>
+
 <div id="audioIndicator">
 <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
 </div>
@@ -251,74 +335,188 @@ opacity: 0; transition: opacity 0.3s;
 
 <script>
 const slidesData = [
-{ text: "Welcome to Face Reader. The future of attendance and training management. Seamless compliance, verified attendance, and real-time oversight.", duration: 12000 },
-{ text: "Infinite Scalability. Zero Hardware Required. A 100% web-based architecture that deploys instantly using the smartphones, tablets, or laptops you already own. No Capital Expenditure. Zero Maintenance. Instant Deployment.", duration: 15000 },
-{ text: "Total Oversight. In Real-Time. The Live Office Dashboard provides an instant, bird's-eye view of your workforce as events happen. Avoid duplicate billing and administrative errors. Track daily site throughput instantly.", duration: 15000 },
-{ text: "Incontrovertible Truth. Exact Time, Precise Location. Eradicate time theft and verify presence with incontrovertible GPS data. Right Person, verified by biometric face scan. Right Place, GPS location verification accurate to within 5 metres. Right Time, exact sign-in and sign-out times recorded down to the second.", duration: 20000 },
-{ text: "Bulletproof Compliance. The Automated Training Matrix. Track critical operative qualifications and expiry statuses automatically to ensure absolute site compliance. Centralised Logging. Real-Time Tracking. Immediate Visual Flags for expired credentials.", duration: 18000 },
-{ text: "Easy Management. Complete Control. The Admin Panel gives you full control over your workforce data with an intuitive interface. Add and edit operatives instantly. Track qualifications and monitor expiry dates automatically. Export data for payroll and compliance.", duration: 18000 },
-{ text: "Simple Registration. Onboard in Minutes. Register new operatives quickly with our streamlined process. Capture face biometrics and collect all necessary information in one seamless workflow. Face capture for secure biometric registration. Complete profiles with qualifications, contacts, and supervisor details. Instant activation so new operatives can sign in immediately.", duration: 20000 },
-{ text: "Why Face Reader? We combine biometric security, GPS verification, and automated compliance into one seamless platform. Reduce time theft by up to 95 percent. Ensure 100 percent workforce compliance. Save hours of administrative work every week. Ready to transform your site management?", duration: 20000 }
+{ text: "Welcome to Face Reader. The future of attendance and training management. Seamless compliance, verified attendance, and real-time oversight.", duration: 15000 },
+{ text: "Infinite Scalability. Zero Hardware Required. A 100% web-based architecture that deploys instantly using the smartphones, tablets, or laptops you already own. No Capital Expenditure. Zero Maintenance. Instant Deployment.", duration: 18000 },
+{ text: "Total Oversight. In Real-Time. The Live Office Dashboard provides an instant, bird's-eye view of your workforce as events happen. Avoid duplicate billing and administrative errors. Track daily site throughput instantly.", duration: 18000 },
+{ text: "Incontrovertible Truth. Exact Time, Precise Location. Eradicate time theft and verify presence with incontrovertible GPS data. Right Person, verified by biometric face scan. Right Place, GPS location verification accurate to within 5 metres. Right Time, exact sign-in and sign-out times recorded down to the second.", duration: 22000 },
+{ text: "Bulletproof Compliance. The Automated Training Matrix. Track critical operative qualifications and expiry statuses automatically to ensure absolute site compliance. Centralised Logging. Real-Time Tracking. Immediate Visual Flags for expired credentials.", duration: 20000 },
+{ text: "Easy Management. Complete Control. The Admin Panel gives you full control over your workforce data with an intuitive interface. Add and edit operatives instantly. Track qualifications and monitor expiry dates automatically. Export data for payroll and compliance.", duration: 20000 },
+{ text: "Simple Registration. Onboard in Minutes. Register new operatives quickly with our streamlined process. Capture face biometrics and collect all necessary information in one seamless workflow. Face capture for secure biometric registration. Complete profiles with qualifications, contacts, and supervisor details. Instant activation so new operatives can sign in immediately.", duration: 24000 },
+{ text: "Why Face Reader? We combine biometric security, GPS verification, and automated compliance into one seamless platform. Reduce time theft by up to 95 percent. Ensure 100 percent workforce compliance. Save hours of administrative work every week. Ready to transform your site management?", duration: 22000 }
 ];
 
 let currentSlide = 0;
+let isPlaying = false;
+let speechTimeout = null;
 const synth = window.speechSynthesis;
+let currentUtterance = null;
+let availableVoices = [];
+
 const indicator = document.getElementById('audioIndicator');
 const progressBar = document.getElementById('progressBar');
+const controls = document.getElementById('controls');
+const playPauseBtn = document.getElementById('playPauseBtn');
+const slideCounter = document.getElementById('slideCounter');
+const voiceSelector = document.getElementById('voiceSelector');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
 
-function speakSlide(index) {
-if (index >= slidesData.length) {
-indicator.classList.remove('speaking');
-return;
+// Load voices
+function loadVoices() {
+availableVoices = synth.getVoices();
+voiceSelector.innerHTML = '<option value="">Select Voice...</option>';
+
+// Sort voices: prefer female, then English
+availableVoices.sort((a, b) => {
+const aIsFemale = a.name.toLowerCase().includes('female');
+const bIsFemale = b.name.toLowerCase().includes('female');
+const aIsEnglish = a.lang.includes('en');
+const bIsEnglish = b.lang.includes('en');
+
+if (aIsFemale && !bIsFemale) return -1;
+if (!aIsFemale && bIsFemale) return 1;
+if (aIsEnglish && !bIsEnglish) return -1;
+if (!aIsEnglish && bIsEnglish) return 1;
+return 0;
+});
+
+availableVoices.forEach((voice, index) => {
+const option = document.createElement('option');
+option.value = index;
+option.textContent = `${voice.name} (${voice.lang})`;
+voiceSelector.appendChild(option);
+});
+
+// Auto-select first female English voice if available
+const preferredVoice = availableVoices.findIndex(v =>
+(v.name.includes('Female') || v.name.includes('Zira') || v.name.includes('Samantha')) &&
+v.lang.includes('en')
+);
+
+if (preferredVoice !== -1) {
+voiceSelector.value = preferredVoice;
+}
 }
 
+function changeVoice() {
+// Voice will be applied on next speak
+}
+
+function getSelectedVoice() {
+const selectedIndex = voiceSelector.value;
+if (selectedIndex !== "") {
+return availableVoices[selectedIndex];
+}
+return null;
+}
+
+function updateControls() {
+slideCounter.textContent = `${currentSlide + 1} / ${slidesData.length}`;
+progressBar.style.width = ((currentSlide + 1) / slidesData.length * 100) + '%';
+
+prevBtn.disabled = currentSlide === 0;
+nextBtn.disabled = currentSlide === slidesData.length - 1;
+playPauseBtn.textContent = isPlaying ? '⏸ Pause' : '▶ Play';
+}
+
+function speakSlide(index, autoAdvance = true) {
+if (index < 0 || index >= slidesData.length) return;
+
+currentSlide = index;
+updateControls();
+
+// Update visual slide
 document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
 document.querySelectorAll('.slide')[index].classList.add('active');
 
-const progress = ((index + 1) / slidesData.length) * 100;
-progressBar.style.width = progress + '%';
+// Cancel any ongoing speech
+synth.cancel();
 
 const utterance = new SpeechSynthesisUtterance(slidesData[index].text);
-utterance.rate = 0.95;
-utterance.pitch = 1.05;
+utterance.rate = 0.85; // Slower, more natural
+utterance.pitch = 1.0;
+utterance.volume = 1.0;
 
-const voices = synth.getVoices();
-// Try to find a good female voice
-const femaleVoice = voices.find(v =>
-v.name.includes('Google UK English Female') ||
-v.name.includes('Microsoft Zira') ||
-v.name.includes('Samantha') ||
-v.name.includes('Karen') ||
-v.name.includes('Female')
-);
-
-if (femaleVoice) {
-utterance.voice = femaleVoice;
-} else {
-// Fallback to any English voice
-const englishVoice = voices.find(v => v.lang.includes('en'));
-if (englishVoice) utterance.voice = englishVoice;
+const selectedVoice = getSelectedVoice();
+if (selectedVoice) {
+utterance.voice = selectedVoice;
 }
 
-utterance.onstart = () => indicator.classList.add('speaking');
-utterance.onend = () => {
-indicator.classList.remove('speaking');
-setTimeout(() => speakSlide(index + 1), 1500);
+utterance.onstart = () => {
+indicator.classList.add('speaking');
 };
 
+utterance.onend = () => {
+indicator.classList.remove('speaking');
+if (autoAdvance && isPlaying && currentSlide < slidesData.length - 1) {
+speechTimeout = setTimeout(() => {
+speakSlide(currentSlide + 1, true);
+}, 2000);
+}
+};
+
+currentUtterance = utterance;
 synth.speak(utterance);
+}
+
+function nextSlide() {
+if (currentSlide < slidesData.length - 1) {
+speakSlide(currentSlide + 1, isPlaying);
+}
+}
+
+function previousSlide() {
+if (currentSlide > 0) {
+speakSlide(currentSlide - 1, isPlaying);
+}
+}
+
+function togglePlayPause() {
+if (isPlaying) {
+// Pause
+isPlaying = false;
+synth.pause();
+if (speechTimeout) {
+clearTimeout(speechTimeout);
+speechTimeout = null;
+}
+} else {
+// Resume or start
+if (currentUtterance && synth.paused) {
+synth.resume();
+} else {
+speakSlide(currentSlide, true);
+}
+isPlaying = true;
+}
+updateControls();
 }
 
 document.getElementById('startBtn').addEventListener('click', () => {
 document.getElementById('startOverlay').style.opacity = '0';
 setTimeout(() => {
 document.getElementById('startOverlay').style.display = 'none';
-if (synth.getVoices().length === 0) {
-synth.onvoiceschanged = () => speakSlide(0);
-} else {
-speakSlide(0);
+controls.classList.remove('hidden');
+
+// Load voices
+loadVoices();
+if (synth.onvoiceschanged !== undefined) {
+synth.onvoiceschanged = loadVoices;
 }
+
+isPlaying = true;
+speakSlide(0, true);
 }, 500);
+});
+
+// Keyboard controls
+document.addEventListener('keydown', (e) => {
+if (e.key === 'ArrowRight') nextSlide();
+if (e.key === 'ArrowLeft') previousSlide();
+if (e.key === ' ') {
+e.preventDefault();
+togglePlayPause();
+}
 });
 </script>
 </body>
