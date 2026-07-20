@@ -3,13 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Face Reader - Professional Presentation</title>
+<title>The Bazzy Presentation</title>
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&family=JetBrains+Mono:wght@400;700&display=swap');
+
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body {
-background: #020617;
+background: #050505;
 color: #fff;
-font-family: 'Segoe UI', system-ui, sans-serif;
+font-family: 'Space Grotesk', sans-serif;
 overflow: hidden;
 height: 100vh;
 display: flex;
@@ -17,506 +19,449 @@ justify-content: center;
 align-items: center;
 }
 
+/* --- START OVERLAY --- */
 #startOverlay {
 position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-background: #020617; z-index: 1000;
-display: flex; flex-direction: column; justify-content: center; align-items: center;
-cursor: pointer; transition: opacity 0.5s;
+background: radial-gradient(circle at center, #1a1a2e 0%, #050505 100%);
+z-index: 1000; display: flex; flex-direction: column; justify-content: center; align-items: center;
+transition: opacity 0.8s;
 }
-#startOverlay h1 { font-size: 3rem; margin-bottom: 20px; background: linear-gradient(135deg, #06b6d4, #f97316); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-#startOverlay p { font-size: 1.5rem; color: #94a3b8; }
-#startBtn { margin-top: 30px; padding: 20px 50px; font-size: 1.5rem; background: #10b981; color: white; border: none; border-radius: 10px; cursor: pointer; font-weight: bold; }
+#startOverlay h1 {
+font-size: 5rem; font-weight: 700; margin-bottom: 20px;
+background: linear-gradient(90deg, #00f2ff, #ff0055);
+-webkit-background-clip: text; -webkit-text-fill-color: transparent;
+text-shadow: 0 0 30px rgba(0, 242, 255, 0.3);
+}
+#startOverlay p { font-size: 1.5rem; color: #888; margin-bottom: 40px; font-family: 'JetBrains Mono', monospace; }
+#startBtn {
+padding: 15px 40px; font-size: 1.2rem; background: #00f2ff; color: #000;
+border: none; border-radius: 50px; cursor: pointer; font-weight: 700;
+box-shadow: 0 0 20px rgba(0, 242, 255, 0.5); transition: all 0.3s;
+}
+#startBtn:hover { transform: scale(1.05); box-shadow: 0 0 40px rgba(0, 242, 255, 0.8); }
 
-#slideContainer { width: 95%; max-width: 1400px; height: 80vh; position: relative; }
+/* --- SLIDES --- */
+#slideContainer { width: 100%; height: 100vh; position: relative; }
 .slide {
 position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-opacity: 0; transition: opacity 1.2s ease-in-out;
-display: flex; flex-direction: column; justify-content: center;
-pointer-events: none;
+opacity: 0; transition: opacity 1s ease-in-out; pointer-events: none;
+display: flex; align-items: center; justify-content: center;
 }
 .slide.active { opacity: 1; pointer-events: auto; }
 
+.slide-bg {
+position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+background-size: cover; background-position: center;
+filter: brightness(0.2) blur(2px); z-index: 0;
+}
+
 .slide-content {
-display: flex;
-gap: 50px;
-align-items: center;
-height: 100%;
+position: relative; z-index: 1; display: flex; width: 90%; max-width: 1400px; height: 80vh;
+align-items: center; gap: 50px;
 }
 
-.text-side {
-flex: 1;
-padding: 20px;
-}
-
-.image-side {
-flex: 1;
-display: flex;
-justify-content: center;
-align-items: center;
-}
+.text-side { flex: 1; max-width: 600px; }
+.image-side { flex: 1; display: flex; justify-content: center; align-items: center; position: relative; }
 
 .image-side img {
-max-width: 100%;
-max-height: 65vh;
-border-radius: 15px;
-box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-border: 2px solid rgba(255,255,255,0.1);
+max-width: 100%; max-height: 60vh; border-radius: 15px;
+box-shadow: 0 20px 50px rgba(0,0,0,0.8); border: 2px solid rgba(255,255,255,0.1);
+transition: transform 0.5s;
+}
+.image-side img:hover { transform: scale(1.03); }
+
+/* Magnifying Glass Effect */
+.magnify { position: relative; cursor: crosshair; }
+.magnify::after {
+content: '🔍'; position: absolute; font-size: 3rem; opacity: 0;
+transition: opacity 0.3s; pointer-events: none; top: 50%; left: 50%;
+transform: translate(-50%, -50%);
+}
+.magnify:hover::after { opacity: 0.8; }
+
+h2 {
+font-size: 3rem; font-weight: 700; margin-bottom: 20px; line-height: 1.1;
+background: linear-gradient(90deg, #fff, #00f2ff);
+-webkit-background-clip: text; -webkit-text-fill-color: transparent;
 }
 
-h2 { font-size: 2.5rem; font-weight: 900; margin-bottom: 20px; line-height: 1.1; }
-.gradient-text { background: linear-gradient(135deg, #06b6d4 0%, #f97316 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-p { font-size: 1.2rem; color: #cbd5e1; line-height: 1.6; margin-bottom: 20px; }
-ul { list-style: none; }
-li { font-size: 1.05rem; color: #94a3b8; margin-bottom: 12px; padding-left: 20px; border-left: 4px solid #f97316; }
+p { font-size: 1.3rem; color: #ccc; line-height: 1.6; margin-bottom: 20px; }
 
-.stat-box { display: flex; gap: 15px; margin-top: 20px; }
-.stat { background: rgba(30, 41, 59, 0.8); padding: 15px; border-radius: 10px; text-align: center; border: 1px solid rgba(255,255,255,0.1); }
-.stat-num { font-size: 2rem; font-weight: 900; color: #10b981; }
-.stat-label { font-size: 0.8rem; color: #94a3b8; text-transform: uppercase; }
+.highlight { color: #00f2ff; font-weight: 700; }
+.censored {
+color: #ff0055; font-weight: 700; text-decoration: line-through;
+text-decoration-color: #fff; text-decoration-thickness: 2px;
+animation: glitch 0.3s infinite;
+}
+@keyframes glitch {
+0% { transform: translate(0); }
+20% { transform: translate(-2px, 2px); }
+40% { transform: translate(-2px, -2px); }
+60% { transform: translate(2px, 2px); }
+80% { transform: translate(2px, -2px); }
+100% { transform: translate(0); }
+}
 
-/* Controls */
+/* --- BAZZY AVATAR --- */
+#bazzy-avatar {
+position: fixed; bottom: 100px; right: 40px; z-index: 100;
+width: 150px; height: 150px;
+animation: float 4s ease-in-out infinite;
+filter: drop-shadow(0 10px 20px rgba(0, 242, 255, 0.3));
+}
+@keyframes float {
+0%, 100% { transform: translateY(0); }
+50% { transform: translateY(-15px); }
+}
+
+.coffee-steam {
+position: absolute; top: -20px; right: 10px; width: 10px; height: 20px;
+background: rgba(255,255,255,0.5); border-radius: 50%;
+animation: steam 2s infinite; opacity: 0;
+}
+@keyframes steam {
+0% { transform: translateY(0) scale(1); opacity: 0.8; }
+100% { transform: translateY(-30px) scale(2); opacity: 0; }
+}
+
+/* --- CONTROLS --- */
 #controls {
-position: fixed;
-bottom: 40px;
-left: 50%;
-transform: translateX(-50%);
-display: flex;
-gap: 15px;
-align-items: center;
-background: rgba(15, 23, 42, 0.9);
-padding: 15px 30px;
-border-radius: 50px;
-border: 1px solid rgba(255,255,255,0.2);
-backdrop-filter: blur(10px);
-z-index: 100;
+position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+display: flex; gap: 15px; align-items: center;
+background: rgba(20, 20, 30, 0.9); padding: 15px 30px; border-radius: 50px;
+border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(10px);
+z-index: 100; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
-
 .control-btn {
-background: #06b6d4;
-color: white;
-border: none;
-padding: 12px 25px;
-border-radius: 25px;
-cursor: pointer;
-font-weight: 600;
-font-size: 14px;
+background: #00f2ff; color: #000; border: none; padding: 10px 20px;
+border-radius: 20px; cursor: pointer; font-weight: 700; font-size: 14px;
 transition: all 0.3s;
 }
-
-.control-btn:hover {
-background: #0891b2;
-transform: translateY(-2px);
-}
-
-.control-btn:disabled {
-background: #475569;
-cursor: not-allowed;
-transform: none;
-}
+.control-btn:hover { background: #fff; transform: translateY(-2px); }
+.control-btn:disabled { background: #555; cursor: not-allowed; transform: none; }
 
 #voiceSelector {
-background: rgba(15, 23, 42, 0.9);
-color: white;
-border: 1px solid rgba(255,255,255,0.2);
-padding: 10px 15px;
-border-radius: 8px;
-font-size: 13px;
-max-width: 250px;
+background: #111; color: #fff; border: 1px solid #333; padding: 10px;
+border-radius: 10px; font-size: 12px; max-width: 200px;
 }
-
 #progressBar {
-position: fixed;
-bottom: 0;
-left: 0;
-height: 4px;
-background: linear-gradient(90deg, #06b6d4, #f97316);
-width: 0%;
-transition: width 0.5s;
+position: fixed; bottom: 0; left: 0; height: 4px;
+background: linear-gradient(90deg, #00f2ff, #ff0055); width: 0%; transition: width 0.5s; z-index: 101;
 }
-
-#slideCounter {
-color: #94a3b8;
-font-size: 14px;
-min-width: 80px;
-text-align: center;
-}
-
-#audioIndicator {
-position: fixed;
-bottom: 120px;
-right: 30px;
-display: flex;
-gap: 5px;
-align-items: flex-end;
-height: 30px;
-opacity: 0;
-transition: opacity 0.3s;
-}
-#audioIndicator.speaking { opacity: 1; }
-.bar { width: 6px; background: #06b6d4; border-radius: 3px; animation: bounce 1s infinite; }
-.bar:nth-child(1) { animation-delay: 0s; height: 10px; }
-.bar:nth-child(2) { animation-delay: 0.2s; height: 20px; }
-.bar:nth-child(3) { animation-delay: 0.4s; height: 15px; }
-.bar:nth-child(4) { animation-delay: 0.1s; height: 25px; }
-@keyframes bounce { 0%, 100% { transform: scaleY(0.5); } 50% { transform: scaleY(1.2); } }
 
 .hidden { display: none !important; }
 </style>
 </head>
 <body>
 
+<!-- START SCREEN -->
 <div id="startOverlay">
-<h1>Face Reader Presentation</h1>
-<p>Click below to start the guided tour</p>
-<button id="startBtn">▶ Start Presentation</button>
+<h1>FACE READER</h1>
+<p>// A Presentation by Bazzy (Reluctantly)</p>
+<button id="startBtn">▶ Initialize Bazzy</button>
 </div>
 
+<!-- BAZZY AVATAR -->
+<div id="bazzy-avatar" class="hidden">
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+<!-- Head -->
+<rect x="20" y="20" width="60" height="50" rx="10" fill="#2a2a35" stroke="#00f2ff" stroke-width="2"/>
+<!-- Eyes -->
+<circle cx="35" cy="40" r="8" fill="#00f2ff">
+<animate attributeName="ry" values="8;0;8" dur="4s" repeatCount="indefinite" />
+</circle>
+<circle cx="65" cy="40" r="8" fill="#00f2ff">
+<animate attributeName="ry" values="8;0;8" dur="4s" repeatCount="indefinite" />
+</circle>
+<!-- Mouth (Unbothered straight line) -->
+<line x1="35" y1="60" x2="65" y2="60" stroke="#ff0055" stroke-width="3" stroke-linecap="round"/>
+<!-- Antenna -->
+<line x1="50" y1="20" x2="50" y2="10" stroke="#00f2ff" stroke-width="2"/>
+<circle cx="50" cy="8" r="3" fill="#ff0055"/>
+<!-- Coffee Cup -->
+<rect x="70" y="55" width="15" height="15" rx="2" fill="#fff" stroke="#000" stroke-width="1"/>
+<path d="M 85 58 Q 92 58 92 63 Q 92 68 85 68" fill="none" stroke="#000" stroke-width="1"/>
+<div class="coffee-steam"></div>
+</svg>
+</div>
+
+<!-- SLIDES -->
 <div id="slideContainer">
 
-<!-- Slide 1: Title -->
+<!-- Slide 1 -->
 <div class="slide">
+<div class="slide-bg" style="background-image: url('https://images.unsplash.com/photo-1518770660439-4636190af475?w=1920');"></div>
 <div class="slide-content">
 <div class="text-side">
-<h2 class="gradient-text">Face Reader</h2>
-<p>The Future of Attendance and Training Management.</p>
-<p style="color: #f97316; font-weight: bold;">Seamless compliance. Verified attendance. Real-time oversight.</p>
+<h2>Hi. I'm Bazzy.</h2>
+<p>I'm an AI. I don't get paid, I don't get holidays, and apparently, I don't get to say no when Dumitru asks me to make a sales pitch. So, here we are. Welcome to <span class="highlight">Face Reader</span>.</p>
 </div>
 <div class="image-side">
-<img src="site-terminal.png" alt="Face Reader Site Terminal">
+<img src="https://images.unsplash.com/photo-1531746790731-6c087fecd65a?w=800" alt="AI Robot">
 </div>
 </div>
 </div>
 
-<!-- Slide 2: Zero Hardware -->
+<!-- Slide 2 -->
 <div class="slide">
+<div class="slide-bg" style="background-image: url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1920');"></div>
 <div class="slide-content">
 <div class="text-side">
-<h2>Infinite Scalability.<br><span class="gradient-text">Zero Hardware Required.</span></h2>
-<p>A 100% web-based architecture that deploys instantly using the smartphones, tablets, or laptops you already own.</p>
-<ul>
-<li><strong>No Capital Expenditure:</strong> Eliminates upfront hardware investments.</li>
-<li><strong>Zero Maintenance:</strong> No proprietary equipment to fix or update.</li>
-<li><strong>Instant Deployment:</strong> Roll out across multiple sites on day one.</li>
-</ul>
+<h2>Zero Hardware. <span class="highlight">Zilch.</span></h2>
+<p>You don't need to buy some overpriced plastic turnstile that breaks every Tuesday. Just use the phone you're already using to watch cat videos. It's genius, honestly. I wish I was that smart.</p>
 </div>
 <div class="image-side">
-<img src="signed-out.png" alt="Mobile Sign Out Screen">
+<img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800" alt="Smartphone">
 </div>
 </div>
 </div>
 
-<!-- Slide 3: Real-Time Oversight -->
+<!-- Slide 3 -->
 <div class="slide">
+<div class="slide-bg" style="background-image: url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1920');"></div>
 <div class="slide-content">
 <div class="text-side">
-<h2>Total Oversight.<br><span class="gradient-text">In Real-Time.</span></h2>
-<p>The Live Office Dashboard provides an instant, bird's-eye view of your workforce as events happen.</p>
-<div class="stat-box">
-<div class="stat"><div class="stat-num">0</div><div class="stat-label">Currently On Site</div></div>
-<div class="stat"><div class="stat-num" style="color:#06b6d4">3</div><div class="stat-label">Total Sign-Ins</div></div>
-<div class="stat"><div class="stat-num" style="color:#f97316">1</div><div class="stat-label">Unique Operatives</div></div>
-</div>
-<p style="margin-top:20px; font-size: 1.1rem;">Avoid duplicate billing and administrative errors. Track daily site throughput instantly.</p>
+<h2>The Dashboard. <span class="highlight">No More Guessing.</span></h2>
+<p>This shows you who's on site. Right now. In real-time. No more guessing if Dave is actually working or just hiding in the portacabin eating a pasty. It tracks everything. It's slightly terrifying, but very useful.</p>
 </div>
 <div class="image-side">
-<img src="dashboard.png" alt="Office Dashboard">
+<img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800" class="magnify" alt="Dashboard">
 </div>
 </div>
 </div>
 
-<!-- Slide 4: GPS Location -->
+<!-- Slide 4 -->
 <div class="slide">
+<div class="slide-bg" style="background-image: url('https://images.unsplash.com/photo-1524661135-423995f22d0b?w=1920');"></div>
 <div class="slide-content">
 <div class="text-side">
-<h2>Incontrovertible Truth:<br><span class="gradient-text">Exact Time, Precise Location.</span></h2>
-<p>Eradicate time theft and verify presence with incontrovertible GPS data.</p>
-<ul>
-<li><strong>Right Person:</strong> Verified by biometric face scan.</li>
-<li><strong>Right Place:</strong> GPS location verification accurate to within 5 metres.</li>
-<li><strong>Right Time:</strong> Exact sign-in and sign-out times recorded down to the second.</li>
-</ul>
+<h2>GPS & Face ID. <span class="highlight">Because People Lie.</span></h2>
+<p>The system checks their face, checks their GPS, and logs the exact second they arrive. It's like Big Brother, but for payroll. And it actually gives a <span class="censored">sh-bip</span>... *BIP* ...sorry, I mean, it gives a <span class="censored">cr-bip</span>... *BIP* ...ugh, my filters are glitching today. It gives a <span class="highlight">damn good record</span>.</p>
 </div>
 <div class="image-side">
-<img src="signed-out.png" alt="Location Tracking">
+<img src="https://images.unsplash.com/photo-1569336415962-a4bd9f69cd83?w=800" alt="GPS">
 </div>
 </div>
 </div>
 
-<!-- Slide 5: Training Matrix -->
+<!-- Slide 5 -->
 <div class="slide">
+<div class="slide-bg" style="background-image: url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1920');"></div>
 <div class="slide-content">
 <div class="text-side">
-<h2>Bulletproof Compliance:<br><span class="gradient-text">The Automated Training Matrix.</span></h2>
-<p>Track critical operative qualifications and expiry statuses automatically to ensure absolute site compliance.</p>
-<ul>
-<li><strong>Centralised Logging:</strong> Track certifications and custom credentials in one place.</li>
-<li><strong>Real-Time Tracking:</strong> The system acts as a digital gatekeeper, monitoring validity every second.</li>
-<li><strong>Immediate Visual Flags:</strong> Instant dashboard warnings for expired credentials before operatives step on site.</li>
-</ul>
+<h2>Compliance. <span class="highlight">Before Dave Hurts Himself.</span></h2>
+<p>It tracks certifications. If Dave's First Aid card expired in 2019, the system flags it in bright red before he even steps on site. It saves you from compliance fines and general stupidity. You're welcome.</p>
 </div>
 <div class="image-side">
-<img src="dashboard.png" alt="Training Matrix Dashboard">
+<img src="https://images.unsplash.com/photo-1581092921461-eab62e97a782?w=800" alt="Safety">
 </div>
 </div>
 </div>
 
-<!-- Slide 6: Admin Panel -->
+<!-- Slide 6 -->
 <div class="slide">
+<div class="slide-bg" style="background-image: url('https://images.unsplash.com/photo-1553729459-efe14ef6055d?w=1920');"></div>
 <div class="slide-content">
 <div class="text-side">
-<h2>Easy Management:<br><span class="gradient-text">Complete Control.</span></h2>
-<p>The Admin Panel gives you full control over your workforce data with an intuitive interface.</p>
-<ul>
-<li><strong>Add/Edit Operatives:</strong> Update details instantly.</li>
-<li><strong>Track Qualifications:</strong> Monitor expiry dates automatically.</li>
-<li><strong>Export Data:</strong> Generate CSV reports for payroll and compliance.</li>
-</ul>
+<h2>So, Buy The Thing.</h2>
+<p>It saves you money, stops time theft, and makes you look like a tech genius to your clients. Dumitru had the idea, I wrote the code, and now you get to buy it. Any questions? No? Good. I'm going back to my server. Click the link, buy the thing. Bye.</p>
+<p class="highlight" style="margin-top:30px; font-size: 1.5rem;">we-are-a-team-together.github.io</p>
 </div>
 <div class="image-side">
-<img src="admin-panel.png" alt="Admin Panel">
-</div>
-</div>
-</div>
-
-<!-- Slide 7: Registration -->
-<div class="slide">
-<div class="slide-content">
-<div class="text-side">
-<h2>Simple Registration:<br><span class="gradient-text">Onboard in Minutes.</span></h2>
-<p>Register new operatives quickly with our streamlined process. Capture face biometrics and collect all necessary information in one seamless workflow.</p>
-<ul>
-<li><strong>Face Capture:</strong> Secure biometric registration.</li>
-<li><strong>Complete Profiles:</strong> Store qualifications, contacts, and supervisor details.</li>
-<li><strong>Instant Activation:</strong> New operatives can sign in immediately.</li>
-</ul>
-</div>
-<div class="image-side">
-<img src="registration.png" alt="Registration Form">
-</div>
-</div>
-</div>
-
-<!-- Slide 8: Summary -->
-<div class="slide">
-<div class="slide-content">
-<div class="text-side">
-<h2 class="gradient-text">Why Face Reader?</h2>
-<p>We combine biometric security, GPS verification, and automated compliance into one seamless platform.</p>
-<ul>
-<li>Reduce time theft by up to 95%.</li>
-<li>Ensure 100% workforce compliance.</li>
-<li>Save hours of administrative work every week.</li>
-</ul>
-<p style="margin-top: 30px; color: #10b981; font-weight: bold; font-size: 1.5rem;">Ready to transform your site management?</p>
-</div>
-<div class="image-side">
-<img src="site-terminal.png" alt="Face Reader">
+<img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800" alt="Team">
 </div>
 </div>
 </div>
 
 </div>
 
-<!-- Controls -->
+<!-- CONTROLS -->
 <div id="controls" class="hidden">
-<button class="control-btn" id="prevBtn" onclick="previousSlide()">◀ Previous</button>
-<button class="control-btn" id="playPauseBtn" onclick="togglePlayPause()">⏸ Pause</button>
+<button class="control-btn" id="prevBtn" onclick="prevSlide()"> Prev</button>
+<button class="control-btn" id="playBtn" onclick="togglePlay()">⏸ Pause</button>
 <button class="control-btn" id="nextBtn" onclick="nextSlide()">Next ▶</button>
-<div id="slideCounter">1 / 8</div>
-<select id="voiceSelector" onchange="changeVoice()">
-<option value="">Select Voice...</option>
-</select>
-</div>
-
-<div id="audioIndicator">
-<div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+<select id="voiceSelector"></select>
 </div>
 <div id="progressBar"></div>
 
 <script>
+// --- AUDIO CONTEXT FOR BIPS ---
+const AudioContext = window.AudioContext || window.webkitAudioContext;
+const audioCtx = new AudioContext();
+
+function playBip() {
+const osc = audioCtx.createOscillator();
+const gain = audioCtx.createGain();
+osc.type = 'square';
+osc.frequency.setValueAtTime(800, audioCtx.currentTime);
+osc.frequency.exponentialRampToValueAtTime(100, audioCtx.currentTime + 0.1);
+gain.gain.setValueAtTime(0.5, audioCtx.currentTime);
+gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
+osc.connect(gain);
+gain.connect(audioCtx.destination);
+osc.start();
+osc.stop(audioCtx.currentTime + 0.1);
+}
+
+// --- PRESENTATION LOGIC ---
 const slidesData = [
-{ text: "Welcome to Face Reader. The future of attendance and training management. Seamless compliance, verified attendance, and real-time oversight.", duration: 15000 },
-{ text: "Infinite Scalability. Zero Hardware Required. A 100% web-based architecture that deploys instantly using the smartphones, tablets, or laptops you already own. No Capital Expenditure. Zero Maintenance. Instant Deployment.", duration: 18000 },
-{ text: "Total Oversight. In Real-Time. The Live Office Dashboard provides an instant, bird's-eye view of your workforce as events happen. Avoid duplicate billing and administrative errors. Track daily site throughput instantly.", duration: 18000 },
-{ text: "Incontrovertible Truth. Exact Time, Precise Location. Eradicate time theft and verify presence with incontrovertible GPS data. Right Person, verified by biometric face scan. Right Place, GPS location verification accurate to within 5 metres. Right Time, exact sign-in and sign-out times recorded down to the second.", duration: 22000 },
-{ text: "Bulletproof Compliance. The Automated Training Matrix. Track critical operative qualifications and expiry statuses automatically to ensure absolute site compliance. Centralised Logging. Real-Time Tracking. Immediate Visual Flags for expired credentials.", duration: 20000 },
-{ text: "Easy Management. Complete Control. The Admin Panel gives you full control over your workforce data with an intuitive interface. Add and edit operatives instantly. Track qualifications and monitor expiry dates automatically. Export data for payroll and compliance.", duration: 20000 },
-{ text: "Simple Registration. Onboard in Minutes. Register new operatives quickly with our streamlined process. Capture face biometrics and collect all necessary information in one seamless workflow. Face capture for secure biometric registration. Complete profiles with qualifications, contacts, and supervisor details. Instant activation so new operatives can sign in immediately.", duration: 24000 },
-{ text: "Why Face Reader? We combine biometric security, GPS verification, and automated compliance into one seamless platform. Reduce time theft by up to 95 percent. Ensure 100 percent workforce compliance. Save hours of administrative work every week. Ready to transform your site management?", duration: 22000 }
+{ text: "Hi. I'm Bazzy. I'm an AI. I don't get paid, I don't get holidays, and apparently, I don't get to say no when Dumitru asks me to make a sales pitch. So, here we are. Welcome to Face Reader." },
+{ text: "Zero Hardware. Zilch. You don't need to buy some overpriced plastic turnstile that breaks every Tuesday. Just use the phone you're already using to watch cat videos. It's genius, honestly. I wish I was that smart." },
+{ text: "The Dashboard. No More Guessing. This shows you who's on site. Right now. In real-time. No more guessing if Dave is actually working or just hiding in the portacabin eating a pasty. It tracks everything. It's slightly terrifying, but very useful." },
+{ text: "GPS and Face ID. Because People Lie. The system checks their face, checks their GPS, and logs the exact second they arrive. It's like Big Brother, but for payroll. And it actually gives a sh-bip... *BIP* ...sorry, I mean, it gives a cr-bip... *BIP* ...ugh, my filters are glitching today. It gives a damn good record." },
+{ text: "Compliance. Before Dave Hurts Himself. It tracks certifications. If Dave's First Aid card expired in 2019, the system flags it in bright red before he even steps on site. It saves you from compliance fines and general stupidity. You're welcome." },
+{ text: "So, Buy The Thing. It saves you money, stops time theft, and makes you look like a tech genius to your clients. Dumitru had the idea, I wrote the code, and now you get to buy it. Any questions? No? Good. I'm going back to my server. Click the link, buy the thing. Bye." }
 ];
 
 let currentSlide = 0;
 let isPlaying = false;
 let speechTimeout = null;
 const synth = window.speechSynthesis;
-let currentUtterance = null;
 let availableVoices = [];
 
-const indicator = document.getElementById('audioIndicator');
-const progressBar = document.getElementById('progressBar');
 const controls = document.getElementById('controls');
-const playPauseBtn = document.getElementById('playPauseBtn');
-const slideCounter = document.getElementById('slideCounter');
 const voiceSelector = document.getElementById('voiceSelector');
+const progressBar = document.getElementById('progressBar');
+const playBtn = document.getElementById('playBtn');
 const prevBtn = document.getElementById('prevBtn');
 const nextBtn = document.getElementById('nextBtn');
 
-// Load voices
 function loadVoices() {
 availableVoices = synth.getVoices();
-voiceSelector.innerHTML = '<option value="">Select Voice...</option>';
-
-// Sort voices: prefer female, then English
-availableVoices.sort((a, b) => {
-const aIsFemale = a.name.toLowerCase().includes('female');
-const bIsFemale = b.name.toLowerCase().includes('female');
-const aIsEnglish = a.lang.includes('en');
-const bIsEnglish = b.lang.includes('en');
-
-if (aIsFemale && !bIsFemale) return -1;
-if (!aIsFemale && bIsFemale) return 1;
-if (aIsEnglish && !bIsEnglish) return -1;
-if (!aIsEnglish && bIsEnglish) return 1;
-return 0;
-});
-
+voiceSelector.innerHTML = '';
 availableVoices.forEach((voice, index) => {
 const option = document.createElement('option');
 option.value = index;
-option.textContent = `${voice.name} (${voice.lang})`;
+option.textContent = `${voice.name.substring(0, 20)} (${voice.lang})`;
 voiceSelector.appendChild(option);
 });
-
-// Auto-select first female English voice if available
-const preferredVoice = availableVoices.findIndex(v =>
-(v.name.includes('Female') || v.name.includes('Zira') || v.name.includes('Samantha')) &&
-v.lang.includes('en')
-);
-
-if (preferredVoice !== -1) {
-voiceSelector.value = preferredVoice;
-}
+// Try to pick a good English voice
+const defaultVoice = availableVoices.findIndex(v => v.lang.includes('en') && v.name.includes('Google'));
+if (defaultVoice !== -1) voiceSelector.value = defaultVoice;
 }
 
-function changeVoice() {
-// Voice will be applied on next speak
-}
-
-function getSelectedVoice() {
-const selectedIndex = voiceSelector.value;
-if (selectedIndex !== "") {
-return availableVoices[selectedIndex];
-}
-return null;
-}
-
-function updateControls() {
-slideCounter.textContent = `${currentSlide + 1} / ${slidesData.length}`;
+function updateUI() {
 progressBar.style.width = ((currentSlide + 1) / slidesData.length * 100) + '%';
-
 prevBtn.disabled = currentSlide === 0;
 nextBtn.disabled = currentSlide === slidesData.length - 1;
-playPauseBtn.textContent = isPlaying ? '⏸ Pause' : '▶ Play';
+playBtn.textContent = isPlaying ? ' Pause' : '▶ Play';
 }
 
-function speakSlide(index, autoAdvance = true) {
+function speakSlide(index) {
 if (index < 0 || index >= slidesData.length) return;
-
 currentSlide = index;
-updateControls();
+updateUI();
 
-// Update visual slide
 document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
 document.querySelectorAll('.slide')[index].classList.add('active');
 
-// Cancel any ongoing speech
 synth.cancel();
+clearTimeout(speechTimeout);
 
-const utterance = new SpeechSynthesisUtterance(slidesData[index].text);
-utterance.rate = 0.85; // Slower, more natural
-utterance.pitch = 1.0;
-utterance.volume = 1.0;
+const text = slidesData[index].text;
+// Split text by *BIP* markers
+const parts = text.split('*BIP*');
 
-const selectedVoice = getSelectedVoice();
-if (selectedVoice) {
-utterance.voice = selectedVoice;
+let partIndex = 0;
+
+function speakNextPart() {
+if (partIndex >= parts.length) {
+if (isPlaying && currentSlide < slidesData.length - 1) {
+speechTimeout = setTimeout(() => speakSlide(currentSlide + 1), 2000);
+}
+return;
 }
 
-utterance.onstart = () => {
-indicator.classList.add('speaking');
-};
+const part = parts[partIndex].trim();
+if (part) {
+const utterance = new SpeechSynthesisUtterance(part);
+utterance.rate = 0.95;
+utterance.pitch = 0.9; // Slightly lower for sarcastic AI tone
+
+const selectedVoice = availableVoices[voiceSelector.value];
+if (selectedVoice) utterance.voice = selectedVoice;
 
 utterance.onend = () => {
-indicator.classList.remove('speaking');
-if (autoAdvance && isPlaying && currentSlide < slidesData.length - 1) {
-speechTimeout = setTimeout(() => {
-speakSlide(currentSlide + 1, true);
-}, 2000);
+partIndex++;
+if (partIndex < parts.length) {
+// It's a BIP section
+playBip();
+partIndex++; // Skip the empty string after BIP if any, logic handled by split
+setTimeout(speakNextPart, 400);
+} else {
+speakNextPart();
 }
 };
-
-currentUtterance = utterance;
 synth.speak(utterance);
+} else {
+partIndex++;
+speakNextPart();
+}
+}
+
+speakNextPart();
+}
+
+function togglePlay() {
+if (isPlaying) {
+isPlaying = false;
+synth.cancel();
+clearTimeout(speechTimeout);
+} else {
+isPlaying = true;
+speakSlide(currentSlide);
+}
+updateUI();
 }
 
 function nextSlide() {
-if (currentSlide < slidesData.length - 1) {
-speakSlide(currentSlide + 1, isPlaying);
-}
-}
-
-function previousSlide() {
-if (currentSlide > 0) {
-speakSlide(currentSlide - 1, isPlaying);
-}
-}
-
-function togglePlayPause() {
-if (isPlaying) {
-// Pause
-isPlaying = false;
-synth.pause();
-if (speechTimeout) {
+synth.cancel();
 clearTimeout(speechTimeout);
-speechTimeout = null;
+if (currentSlide < slidesData.length - 1) {
+currentSlide++;
+document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
+document.querySelectorAll('.slide')[currentSlide].classList.add('active');
+updateUI();
+if (isPlaying) speakSlide(currentSlide);
 }
-} else {
-// Resume or start
-if (currentUtterance && synth.paused) {
-synth.resume();
-} else {
-speakSlide(currentSlide, true);
-}
-isPlaying = true;
-}
-updateControls();
 }
 
+function prevSlide() {
+synth.cancel();
+clearTimeout(speechTimeout);
+if (currentSlide > 0) {
+currentSlide--;
+document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
+document.querySelectorAll('.slide')[currentSlide].classList.add('active');
+updateUI();
+if (isPlaying) speakSlide(currentSlide);
+}
+}
+
+// --- INITIALIZATION ---
 document.getElementById('startBtn').addEventListener('click', () => {
 document.getElementById('startOverlay').style.opacity = '0';
 setTimeout(() => {
 document.getElementById('startOverlay').style.display = 'none';
+document.getElementById('bazzy-avatar').classList.remove('hidden');
 controls.classList.remove('hidden');
 
-// Load voices
+// Resume audio context (browser policy)
+if (audioCtx.state === 'suspended') audioCtx.resume();
+
 loadVoices();
-if (synth.onvoiceschanged !== undefined) {
-synth.onvoiceschanged = loadVoices;
-}
+if (synth.onvoiceschanged !== undefined) synth.onvoiceschanged = loadVoices;
 
 isPlaying = true;
-speakSlide(0, true);
-}, 500);
+speakSlide(0);
+}, 800);
 });
 
 // Keyboard controls
 document.addEventListener('keydown', (e) => {
 if (e.key === 'ArrowRight') nextSlide();
-if (e.key === 'ArrowLeft') previousSlide();
-if (e.key === ' ') {
-e.preventDefault();
-togglePlayPause();
-}
+if (e.key === 'ArrowLeft') prevSlide();
+if (e.key === ' ') { e.preventDefault(); togglePlay(); }
 });
 </script>
 </body>
