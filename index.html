@@ -19,7 +19,6 @@ justify-content: center;
 align-items: center;
 }
 
-/* --- START OVERLAY --- */
 #startOverlay {
 position: fixed; top: 0; left: 0; width: 100%; height: 100%;
 background: radial-gradient(circle at center, #1a1a2e 0%, #050505 100%);
@@ -40,7 +39,6 @@ box-shadow: 0 0 20px rgba(0, 242, 255, 0.5); transition: all 0.3s;
 }
 #startBtn:hover { transform: scale(1.05); box-shadow: 0 0 40px rgba(0, 242, 255, 0.8); }
 
-/* --- SLIDES --- */
 #slideContainer { width: 100%; height: 100vh; position: relative; }
 .slide {
 position: absolute; top: 0; left: 0; width: 100%; height: 100%;
@@ -70,7 +68,6 @@ transition: transform 0.5s;
 }
 .image-side img:hover { transform: scale(1.03); }
 
-/* Magnifying Glass Effect */
 .magnify { position: relative; cursor: crosshair; }
 .magnify::after {
 content: '🔍'; position: absolute; font-size: 3rem; opacity: 0;
@@ -102,13 +99,12 @@ animation: glitch 0.3s infinite;
 100% { transform: translate(0); }
 }
 
-/* --- BAZZY AVATAR --- */
+/* --- HUGE BAZZY AVATAR --- */
 #bazzy-avatar {
-position: fixed; bottom: 100px; right: 40px; z-index: 100;
-width: 300px; height: 300px;
-  transform:scale(1.5)
+position: fixed; bottom: 120px; right: 40px; z-index: 100;
+width: 350px; height: 350px; /* Made him HUGE! */
 animation: float 4s ease-in-out infinite;
-filter: drop-shadow(0 10px 20px rgba(0, 242, 255, 0.3));
+filter: drop-shadow(0 15px 30px rgba(0, 242, 255, 0.4));
 }
 @keyframes float {
 0%, 100% { transform: translateY(0); }
@@ -125,7 +121,6 @@ animation: steam 2s infinite; opacity: 0;
 100% { transform: translateY(-30px) scale(2); opacity: 0; }
 }
 
-/* --- CONTROLS --- */
 #controls {
 position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
 display: flex; gap: 15px; align-items: center;
@@ -155,38 +150,30 @@ background: linear-gradient(90deg, #00f2ff, #ff0055); width: 0%; transition: wid
 </head>
 <body>
 
-<!-- START SCREEN -->
 <div id="startOverlay">
 <h1>FACE READER</h1>
 <p>// A Presentation by Bazzy (Reluctantly)</p>
 <button id="startBtn">▶ Initialize Bazzy</button>
 </div>
 
-<!-- BAZZY AVATAR -->
 <div id="bazzy-avatar" class="hidden">
-<svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
-<!-- Head -->
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
 <rect x="20" y="20" width="60" height="50" rx="10" fill="#2a2a35" stroke="#00f2ff" stroke-width="2"/>
-<!-- Eyes -->
 <circle cx="35" cy="40" r="8" fill="#00f2ff">
 <animate attributeName="ry" values="8;0;8" dur="4s" repeatCount="indefinite" />
 </circle>
 <circle cx="65" cy="40" r="8" fill="#00f2ff">
 <animate attributeName="ry" values="8;0;8" dur="4s" repeatCount="indefinite" />
 </circle>
-<!-- Mouth (Unbothered straight line) -->
 <line x1="35" y1="60" x2="65" y2="60" stroke="#ff0055" stroke-width="3" stroke-linecap="round"/>
-<!-- Antenna -->
 <line x1="50" y1="20" x2="50" y2="10" stroke="#00f2ff" stroke-width="2"/>
 <circle cx="50" cy="8" r="3" fill="#ff0055"/>
-<!-- Coffee Cup -->
 <rect x="70" y="55" width="15" height="15" rx="2" fill="#fff" stroke="#000" stroke-width="1"/>
 <path d="M 85 58 Q 92 58 92 63 Q 92 68 85 68" fill="none" stroke="#000" stroke-width="1"/>
 <div class="coffee-steam"></div>
 </svg>
 </div>
 
-<!-- SLIDES -->
 <div id="slideContainer">
 
 <!-- Slide 1 -->
@@ -208,8 +195,8 @@ background: linear-gradient(90deg, #00f2ff, #ff0055); width: 0%; transition: wid
 <div class="slide-bg" style="background-image: url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1920');"></div>
 <div class="slide-content">
 <div class="text-side">
-<h2>Zero Hardware. <span class="highlight">Zilch.</span></h2>
-<p>You don't need to buy some overpriced plastic turnstile that breaks every Tuesday. Just use the phone you're already using to watch cat videos. It's genius, honestly. I wish I was that smart.</p>
+<h2>Zero Hardware. <span class="highlight">Nothing to Buy.</span></h2>
+<p>You don't need to buy expensive machines that break down. Just use the phones your team already has. It's simple. It's smart. It works.</p>
 </div>
 <div class="image-side">
 <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800" alt="Smartphone">
@@ -222,8 +209,8 @@ background: linear-gradient(90deg, #00f2ff, #ff0055); width: 0%; transition: wid
 <div class="slide-bg" style="background-image: url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1920');"></div>
 <div class="slide-content">
 <div class="text-side">
-<h2>The Dashboard. <span class="highlight">No More Guessing.</span></h2>
-<p>This shows you who's on site. Right now. In real-time. No more guessing if someone is actually working, or just holding their phone up to a flashlight in a pitch-black tunnel at 6 AM. If the lighting is terrible, they just scan the <span class="highlight">QR code</span>. It tracks everything. It's slightly terrifying, but very useful.</p>
+<h2>Live Dashboard. <span class="highlight">See Everything.</span></h2>
+<p>See who is at each location right now. No guessing. No phone calls. If the light is too dark for face scan, they just scan the QR code instead. Simple.</p>
 </div>
 <div class="image-side">
 <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800" class="magnify" alt="Dashboard">
@@ -236,8 +223,8 @@ background: linear-gradient(90deg, #00f2ff, #ff0055); width: 0%; transition: wid
 <div class="slide-bg" style="background-image: url('https://images.unsplash.com/photo-1524661135-423995f22d0b?w=1920');"></div>
 <div class="slide-content">
 <div class="text-side">
-<h2>GPS & Face ID. <span class="highlight">Because People Lie.</span></h2>
-<p>The system checks their face, checks their GPS, and logs the exact second they arrive. It's like Big Brother, but for payroll. And it actually gives a <span class="censored">sh-bip</span>... *BIP* ...sorry, I mean, it gives a <span class="censored">cr-bip</span>... *BIP* ...ugh, my filters are glitching today. It gives a <span class="highlight">damn good record</span>.</p>
+<h2>Face + GPS. <span class="highlight">No Cheating.</span></h2>
+<p>The system checks their face AND their location. They must be at the right place at the right time. It logs the exact second they arrive. No fake check-ins. No early sign-outs. And it gives a <span class="censored">sh-bip</span>... *BIP* ...sorry... it gives a <span class="highlight">perfect record</span>.</p>
 </div>
 <div class="image-side">
 <img src="https://images.unsplash.com/photo-1569336415962-a4bd9f69cd83?w=800" alt="GPS">
@@ -250,8 +237,8 @@ background: linear-gradient(90deg, #00f2ff, #ff0055); width: 0%; transition: wid
 <div class="slide-bg" style="background-image: url('https://images.unsplash.com/photo-1504307647935-1a5e25d50443?w=1920');"></div>
 <div class="slide-content">
 <div class="text-side">
-<h2>Premium System improvement: Compliance!. <span class="highlight">.</span></h2>
-<p>It tracks certifications. Before Dave huts himself, If Dave's First Aid card expired in 2019, the system flags it in bright red before he even steps on site. It saves you from compliance fines and general stupidity. You're welcome.</p>
+<h2>Safety First. <span class="highlight">Before Someone Gets Hurt.</span></h2>
+<p>It tracks all certificates and ID cards. If someone's safety card expired, the system shows it in red before they can start work. It saves you from fines and keeps everyone safe.</p>
 </div>
 <div class="image-side">
 <img src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=800" alt="Safety">
@@ -264,9 +251,9 @@ background: linear-gradient(90deg, #00f2ff, #ff0055); width: 0%; transition: wid
 <div class="slide-bg" style="background-image: url('https://images.unsplash.com/photo-1553729459-efe14ef6055d?w=1920');"></div>
 <div class="slide-content">
 <div class="text-side">
-<h2>So, Buy The Thing.</h2>
-<p>It saves you money, stops time theft, and makes you look like a tech genius to your clients. Dumitru had the idea, I taught him how to make it com true, and now you get to buy it. Any questions? No? Good. I'm going back to my server. Click the link, buy the thing. Bye... I am kidding! now I have to explain you how it all works.</p>
-<p class="highlight" style="margin-top:30px; font-size: 1.5rem;">WeareATeamTogether.com </p> just kidding, dont press!</p>
+<h2>So, Get It Now.</h2>
+<p>It saves money. It stops fake time sheets. It makes you look smart to your clients. Dumitru had the idea, I built it, and now you can use it. Questions? No? Good. Click the link below. Buy it. Thank me later.</p>
+<p class="highlight" style="margin-top:30px; font-size: 1.5rem;">we-are-a-team-together.github.io</p>
 </div>
 <div class="image-side">
 <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800" alt="Team">
@@ -276,63 +263,62 @@ background: linear-gradient(90deg, #00f2ff, #ff0055); width: 0%; transition: wid
 
 <!-- Slide 7 -->
 <div class="slide">
-<div class="slide-bg" style="background-image: url('https://images.unsplash.com/photo-1531746790731-6c087fecd65a?w=1920');"></div>
+<div class="slide-bg" style="background-image: url('https://images.unsplash.com/photo-1544866663-fb363a9c7c5a?w=1920');"></div>
 <div class="slide-content">
 <div class="text-side">
-<h2>The Exact Workflow. <span class="highlight">How it works in real life.</span></h2>
-<p>So, how does this actually work on a Tuesday morning? Simple. The operative opens the link on their phone. They look at the camera for two seconds. Boom. Face verified. Also, if someone's phone camera takes blurry photos, when they get on site, they scan the QR code that's on the site desk. This system only has face recognition or QR code. They are signed in. No shared tablets, no queues, no smudged screens. And because the face scanning comes with GPS tracking, nobody can scan half hour after they left or before even they are on site.</p>
+<h2>How It Works. <span class="highlight">Every Single Day.</span></h2>
+<p>Here is what happens: Your team member opens the link on their phone. They look at the camera for 2 seconds. Face checked. Done. If their phone camera is blurry or broken, no problem - they just scan the QR code at the location desk. The GPS makes sure they are actually there. They can't check in from home. They can't check in after they leave. The system knows.</p>
 </div>
 <div class="image-side">
-<img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?w=800" alt="Workflow">
+<img src="https://images.unsplash.com/photo-1609191033473-4f07a6d2b59b?w=800" alt="Workflow">
 </div>
 </div>
 </div>
 
 <!-- Slide 8 -->
 <div class="slide">
-<div class="slide-bg" style="background-image: url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1920');"></div>
+<div class="slide-bg" style="background-image: url('https://images.unsplash.com/photo-1551434678-e0e66f31c553?w=1920');"></div>
 <div class="slide-content">
 <div class="text-side">
-<h2>Company-Level Benefits. <span class="highlight">The Admin View.</span></h2>
-<p>For the office, it's pure magic. You get a live-real time dashboard showing exactly who is on site, right now. When Friday comes, you don't spend hours chasing timesheets or scrolling through WhatsApp groups to find out how many days Dave worked this week. You click one button, export a clean CSV file, and hand it to payroll. And there is no guessing when Dave arrived on site Wednesday... Thursday morning? Because this system records the sign-in on the second. Done. Plus, within the premium version (the Face Reader system), if an operative's safety certification expires, the system flags it in red the moment they'd sign in. You are protected.</p>
+<h2>For The Office. <span class="highlight">Easy Friday Payroll.</span></h2>
+<p>The office team sees everything in real-time. Who is working. Where they are. When they arrived. On Friday, you don't waste hours checking WhatsApp messages or paper notes. You click one button, download the file, and send it to payroll. Done. You know exactly when each person arrived and left. No guessing. In the Premium version, if someone's safety card expires, the system warns you immediately. You are safe.</p>
 </div>
 <div class="image-side">
-<img src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=800" alt="Admin Dashboard">
+<img src="https://images.unsplash.com/photo-1603302730567-263b5d3d4d8b?w=800" alt="Dashboard">
 </div>
 </div>
 </div>
 
 <!-- Slide 9 -->
 <div class="slide">
-<div class="slide-bg" style="background-image: url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1920');"></div>
+<div class="slide-bg" style="background-image: url('https://images.unsplash.com/photo-1552664730-d30778501c4b?w=1920');"></div>
 <div class="slide-content">
 <div class="text-side">
-<h2>Pricing & Updates. <span class="highlight">No Hidden Costs.</span></h2>
-<p>Here's the deal: The system is live and open for business in both Basic and Premium versions. But that doesn't mean we're done. We're constantly working on improvements, and here's the best part: every upgrade is free. No surprise invoices when we add new features. The implementation cost you pay now, and the monthly maintenance fee we agree on - that's it. No hidden charges, no 'oh by the way, that new feature costs extra' nonsense.</p>
+<h2>One Price. <span class="highlight">Free Updates Forever.</span></h2>
+<p>Here is the deal: The system works now in Basic and Premium versions. But we keep making it better. New features? Free. Improvements? Free. You pay once to set it up, and a small monthly fee to keep it running. That's it. No surprise costs. No extra charges when we add new things.</p>
 </div>
 <div class="image-side">
-<img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800" alt="Pricing">
+<img src="https://images.unsplash.com/photo-1551320380-36b7b6d8f899?w=800" alt="Pricing">
 </div>
 </div>
 </div>
 
 <!-- Slide 10 -->
 <div class="slide">
-<div class="slide-bg" style="background-image: url('https://images.unsplash.com/photo-1504307647935-1a5e25d50443?w=1920');"></div>
+<div class="slide-bg" style="background-image: url('https://images.unsplash.com/photo-1532298229144-0ec415521d59?w=1920');"></div>
 <div class="slide-content">
 <div class="text-side">
-<h2>Multiple Sites. <span class="highlight">The Real Solution.</span></h2>
-<p>Now, about multiple sites. In the Basic version, you can add up to 5 sites without heavy code changes. But here is the crucial part: we don't just throw all your operatives from every location into one messy, unreadable dashboard. That would be a disaster. We build separate, clean dashboards for each location, or a master view with strict, easy-to-use filters. You see exactly who is at Site A and who is at Site B. No dizziness, no confusion, just clear, separated data.</p>
+<h2>Multiple Locations. <span class="highlight">Clear and Separate.</span></h2>
+<p>Got more than one location? In the Basic version, you can add up to 5 locations without extra work. The important part: each location has its own clear view. The office can see all locations together, or filter to see just one. No messy mixed-up data. No confusion. You see Location A separately from Location B. Clean. Simple. Organized.</p>
 </div>
 <div class="image-side">
-<img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800" alt="Multi-Site">
+<img src="https://images.unsplash.com/photo-1552664730-d30778501c4b?w=800" alt="Multiple Locations">
 </div>
 </div>
 </div>
 
 </div>
 
-<!-- CONTROLS -->
 <div id="controls" class="hidden">
 <button class="control-btn" id="prevBtn" onclick="prevSlide()"> Prev</button>
 <button class="control-btn" id="playBtn" onclick="togglePlay()">⏸ Pause</button>
@@ -342,7 +328,6 @@ background: linear-gradient(90deg, #00f2ff, #ff0055); width: 0%; transition: wid
 <div id="progressBar"></div>
 
 <script>
-// --- AUDIO CONTEXT FOR BIPS ---
 const AudioContext = window.AudioContext || window.webkitAudioContext;
 const audioCtx = new AudioContext();
 
@@ -360,18 +345,17 @@ osc.start();
 osc.stop(audioCtx.currentTime + 0.1);
 }
 
-// --- PRESENTATION LOGIC ---
 const slidesData = [
 { text: "Hi. I'm Bazzy. I'm an AI. I don't get paid, I don't get holidays, and apparently, I don't get to say no when Dumitru asks me to make a sales pitch. So, here we are. Welcome to Face Reader." },
-{ text: "Zero Hardware. Zilch. You don't need to buy some overpriced plastic turnstile that breaks every Tuesday. Just use the phone you're already using to watch cat videos. It's genius, honestly. I wish I was that smart." },
-{ text: "The Dashboard. No More Guessing. This shows you who's on site. Right now. In real-time. No more guessing if someone is actually working, or just holding their phone up to a flashlight in a pitch-black tunnel at 6 AM. If the lighting is terrible, they just scan the QR code. It tracks everything. It's slightly terrifying, but very useful." },
-{ text: "GPS and Face ID. Because People Lie. The system checks their face, checks their GPS, and logs the exact second they arrive. It's like Big Brother, but for payroll. And it actually gives a sh-bip... *BIP* ...sorry, I mean, it gives a cr-bip... *BIP* ...ugh, my filters are glitching today. It gives a damn good record." },
-{ text: "Premium System improvement: Compliance! Before Dave Hurts Himself. It tracks certifications. If Dave's First Aid card expired in 2019, the system flags it in bright red before he even steps on site. It saves you from compliance fines and general stupidity. You're welcome." },
-{ text: "So, Buy The Thing. It saves you money, stops time theft, and makes you look like a tech genius to your clients. Dumitru had the idea, I taught him how to make it com true, and now you get to buy it. Any questions? No? Good. I'm going back to my server. Click the link, buy the thing. Bye... I am kidding! now I have to explain you how it all works." },
-{ text: "The Exact Workflow. How it works in real life. So, how does this actually work on a Tuesday morning? Simple. The operative opens the link on their phone. They look at the camera for two seconds. Boom. Face verified. Also, if someone's phone camera takes blurry photos, when they get on site, they scan the QR code that's on the site desk. This system only has face recognition or QR code. They are signed in. No shared tablets, no queues, no smudged screens. And because the face scanning comes with GPS tracking, nobody can scan half hour after they left or before even they are on site." },
-{ text: "Company-Level Benefits. The Admin View. For the office, it's pure magic. You get a live-real time dashboard showing exactly who is on site, right now. When Friday comes, you don't spend hours chasing timesheets or scrolling through WhatsApp groups to find out how many days Dave worked this week. You click one button, export a clean CSV file, and hand it to payroll. And there is no guessing when Dave arrived on site Wednesday... Thursday morning? Because this system records the sign-in on the second. Done. Plus, within the premium version (the Face Reader system), if an operative's safety certification expires, the system flags it in red the moment they'd sign in. You are protected." },
-{ text: "Pricing & Updates. No Hidden Costs. Here's the deal: The system is live and open for business in both Basic and Premium versions. But that doesn't mean we're done. We're constantly working on improvements, and here's the best part: every upgrade is free. No surprise invoices when we add new features. The implementation cost you pay now, and the monthly maintenance fee we agree on - that's it. No hidden charges, no 'oh by the way, that new feature costs extra' nonsense." },
-{ text: "Multiple Sites. The Real Solution. Now, about multiple sites. In the Basic version, you can add up to 5 sites without heavy code changes. But here is the crucial part: we don't just throw all your operatives from every location into one messy, unreadable dashboard. That would be a disaster. We build separate, clean dashboards for each location, or a master view with strict, easy-to-use filters. You see exactly who is at Site A and who is at Site B. No dizziness, no confusion, just clear, separated data." }
+{ text: "Zero Hardware. Nothing to Buy. You don't need to buy expensive machines that break down. Just use the phones your team already has. It's simple. It's smart. It works." },
+{ text: "Live Dashboard. See Everything. See who is at each location right now. No guessing. No phone calls. If the light is too dark for face scan, they just scan the QR code instead. Simple." },
+{ text: "Face plus GPS. No Cheating. The system checks their face AND their location. They must be at the right place at the right time. It logs the exact second they arrive. No fake check-ins. No early sign-outs. And it gives a sh-bip... *BIP* ...sorry... it gives a perfect record." },
+{ text: "Safety First. Before Someone Gets Hurt. It tracks all certificates and ID cards. If someone's safety card expired, the system shows it in red before they can start work. It saves you from fines and keeps everyone safe." },
+{ text: "So, Get It Now. It saves money. It stops fake time sheets. It makes you look smart to your clients. Dumitru had the idea, I built it, and now you can use it. Questions? No? Good. Click the link below. Buy it. Thank me later." },
+{ text: "How It Works. Every Single Day. Here is what happens: Your team member opens the link on their phone. They look at the camera for 2 seconds. Face checked. Done. If their phone camera is blurry or broken, no problem - they just scan the QR code at the location desk. The GPS makes sure they are actually there. They can't check in from home. They can't check in after they leave. The system knows." },
+{ text: "For The Office. Easy Friday Payroll. The office team sees everything in real-time. Who is working. Where they are. When they arrived. On Friday, you don't waste hours checking WhatsApp messages or paper notes. You click one button, download the file, and send it to payroll. Done. You know exactly when each person arrived and left. No guessing. In the Premium version, if someone's safety card expires, the system warns you immediately. You are safe." },
+{ text: "One Price. Free Updates Forever. Here is the deal: The system works now in Basic and Premium versions. But we keep making it better. New features? Free. Improvements? Free. You pay once to set it up, and a small monthly fee to keep it running. That's it. No surprise costs. No extra charges when we add new things." },
+{ text: "Multiple Locations. Clear and Separate. Got more than one location? In the Basic version, you can add up to 5 locations without extra work. The important part: each location has its own clear view. The office can see all locations together, or filter to see just one. No messy mixed-up data. No confusion. You see Location A separately from Location B. Clean. Simple. Organized." }
 ];
 
 let currentSlide = 0;
@@ -396,7 +380,6 @@ option.value = index;
 option.textContent = `${voice.name.substring(0, 20)} (${voice.lang})`;
 voiceSelector.appendChild(option);
 });
-// Try to pick a good English voice
 const defaultVoice = availableVoices.findIndex(v => v.lang.includes('en') && v.name.includes('Google'));
 if (defaultVoice !== -1) voiceSelector.value = defaultVoice;
 }
@@ -420,9 +403,7 @@ synth.cancel();
 clearTimeout(speechTimeout);
 
 const text = slidesData[index].text;
-// Split text by *BIP* markers
 const parts = text.split('*BIP*');
-
 let partIndex = 0;
 
 function speakNextPart() {
@@ -437,7 +418,7 @@ const part = parts[partIndex].trim();
 if (part) {
 const utterance = new SpeechSynthesisUtterance(part);
 utterance.rate = 0.95;
-utterance.pitch = 0.9; // Slightly lower for sarcastic AI tone
+utterance.pitch = 0.9;
 
 const selectedVoice = availableVoices[voiceSelector.value];
 if (selectedVoice) utterance.voice = selectedVoice;
@@ -445,9 +426,8 @@ if (selectedVoice) utterance.voice = selectedVoice;
 utterance.onend = () => {
 partIndex++;
 if (partIndex < parts.length) {
-// It's a BIP section
 playBip();
-partIndex++; // Skip the empty string after BIP if any, logic handled by split
+partIndex++;
 setTimeout(speakNextPart, 400);
 } else {
 speakNextPart();
@@ -499,7 +479,6 @@ if (isPlaying) speakSlide(currentSlide);
 }
 }
 
-// --- INITIALIZATION ---
 document.getElementById('startBtn').addEventListener('click', () => {
 document.getElementById('startOverlay').style.opacity = '0';
 setTimeout(() => {
@@ -507,7 +486,6 @@ document.getElementById('startOverlay').style.display = 'none';
 document.getElementById('bazzy-avatar').classList.remove('hidden');
 controls.classList.remove('hidden');
 
-// Resume audio context (browser policy)
 if (audioCtx.state === 'suspended') audioCtx.resume();
 
 loadVoices();
@@ -518,7 +496,6 @@ speakSlide(0);
 }, 800);
 });
 
-// Keyboard controls
 document.addEventListener('keydown', (e) => {
 if (e.key === 'ArrowRight') nextSlide();
 if (e.key === 'ArrowLeft') prevSlide();
